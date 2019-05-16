@@ -1,10 +1,16 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <div class="container">
+      <div class="section">
+        <div class="buttons are-medium">
+          <a  class="button" type="is-info" size="is-medium" @click="getAllRecipes">All</a>
+          <a  class="button" v-for="(tag, index) in tags" :key="index" type="is-info" size="is-medium" @click="getRequestedResipes(tag.id)">{{ tag.name }}</a>
+        </div>
+      </div>
+
       <div class="columns is-multiline">
-        <div class="column is-4" v-for="(recipe,index) in recipesFromHome" :key="index" >
+        <div class="column is-4" v-for="(recipe,index) in recipes" :key="index" >
           <RecipeCard  :id="recipe.id" />
         </div>
       </div>
@@ -13,28 +19,54 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import RecipeCard from '@/components/RecipeCard.vue'
 
 import axios from 'axios'
+import { uri } from '../config'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld,
     RecipeCard
   },
   data() {
     return {
-      recipesFromHome: null
+      recipes: null,
+      tags: null
     }
   },
-  mounted () {
-      axios
-          .get('https://www.recipes.test/api/recipes')
-          .then(r => (this.recipesFromHome = r.data.data));
+  mounted() {
 
+    this.getAllRecipes();
+    this.getAllTags();
+
+  },
+  methods: {
+    getAllRecipes()
+    {
+      axios
+              .get(`${uri}recipes`)
+              .then(r => (this.recipes = r.data.data));
+    },
+    getAllTags()
+    {
+      axios.get(uri + 'tags')
+              .then(response => {
+                this.tags = response.data.data;
+              });
+              // .catch(error => {
+              //   //console.log(error.response)
+              // });
+    },
+    getRequestedResipes(id) {
+      axios.get(uri + 'tags/' +  id + '/recipes')
+              .then(response => {
+                this.recipes = response.data.data;
+              });
+              // .catch(error => {
+              //   //console.log(error.response)
+              // });
+    }
   }
 
 

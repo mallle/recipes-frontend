@@ -40,7 +40,9 @@
                   .get(`https://www.recipes.test/api/recipes/${this.id}`)
                   .then(r => (this.recipe = r.data.data));
 
+
         },
+
 
     }
 </script>
