@@ -5,41 +5,19 @@
                 <img alt="Vue logo" src="../assets/logo.png">
             </a>
 
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+               :class="{'is-active': isActive}" @click="isActive = !isActive">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
         </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
+        <div id="navbarBasicExample" class="navbar-menu" :class="{'is-active': isActive}">
             <div class="navbar-start">
 
-                <router-link to="/" tag="a" class="navbar-item">Home</router-link>
+                <router-link to="/tags" tag="a" class="navbar-item" >Tags</router-link>
 
-                <router-link to="/" tag="a" class="navbar-item">Suche</router-link>
-
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        More
-                    </a>
-
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                            About
-                        </a>
-                        <a class="navbar-item">
-                            Jobs
-                        </a>
-                        <a class="navbar-item">
-                            Contact
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item">
-                            Report an issue
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </nav>
@@ -47,7 +25,11 @@
 
 <script>
     export default {
-        name: "Navbar.vue"
+        name: "Navbar.vue",
+        data() {
+            return { isActive: false }
+        }
+
     }
 </script>
 

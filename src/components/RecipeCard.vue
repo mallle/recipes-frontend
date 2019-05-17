@@ -24,6 +24,7 @@
 
 <script>
     import axios from 'axios'
+    import { uri } from '../config.js'
 
     export default {
         name: "RecipeCard.vue",
@@ -37,7 +38,7 @@
         },
         mounted() {
             axios
-                  .get(`https://www.recipes.test/api/recipes/${this.id}`)
+                  .get(`${uri}recipes/${this.id}`)
                   .then(r => (this.recipe = r.data.data));
 
 
